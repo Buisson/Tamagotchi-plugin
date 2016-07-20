@@ -9,13 +9,15 @@ class TamagotchiCommand(sublime_plugin.TextCommand):
 
 
     def run(self, edit):
+		self.view.insert(edit,0, "--(^o^)--\n")
+
 		def display_happy():
 			#sublime.message_dialog("dans fonc ...")
-			self.view.replace(edit, sublime.Region(0,9), "--(^o^)--")
+			self.view.replace(edit, sublime.Region(0,10), "--(^o^)--\n")
 
 		def display_normal():
 			#sublime.message_dialog("dans fonc ...")
-			self.view.replace(edit, sublime.Region(0,9), "--(^-^)--")
+			self.view.replace(edit, sublime.Region(0,10), "--(^-^)--\n")
 
 		def normal_move(i):
 			if i==1:
@@ -24,6 +26,10 @@ class TamagotchiCommand(sublime_plugin.TextCommand):
 			else:
 				sublime.set_timeout(display_happy, (i+(i-1))*1000)
 				sublime.set_timeout(display_normal, (i+i)*1000)
+
+		def doLoop():
+			for i in range (1,10) :
+				normal_move(i)			
 		 	# return
 		# for x in range(1,10):
 		# 	sublime.set_timeout(lambda x=x: self.view.insert(edit,0,x), x*1000)
@@ -35,5 +41,4 @@ class TamagotchiCommand(sublime_plugin.TextCommand):
 		# self.view.replace(edit, sublime.Region(0,9), "--(^-^)--")
 		#	i = i + 1
 		
-		for i in range (1,10) :
-			normal_move(i)
+		doLoop()
